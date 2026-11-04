@@ -1,0 +1,16 @@
+# Dépendances d'exécution (image Docker + CI).
+#
+# Airflow est installé avec ses contraintes officielles, qui figent aussi
+# pandas, requests, beautifulsoup4, msal... (build reproductible).
+# Pour changer de version d'Airflow : modifier la ligne -c, le pin ci-dessous
+# ET l'ARG AIRFLOW_VERSION du Dockerfile (le build échoue s'ils divergent).
+#
+# dbt n'est volontairement PAS ici : ses dépendances entrent en conflit avec
+# ces contraintes. Voir requirements-dbt.txt (environnement séparé).
+-c https://raw.githubusercontent.com/apache/airflow/constraints-2.10.1/constraints-3.12.txt
+
+apache-airflow==2.10.1
+beautifulsoup4
+msal
+pandas
+requests

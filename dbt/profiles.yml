@@ -1,0 +1,10 @@
+test_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      # Chemin vers le fichier de base de données DuckDB qui va centraliser tes calculs
+      path: 'data/rugby_analytics.duckdb'
+      extensions:
+        - json    # Permet à DuckDB de lire tes fichiers JSON Bronze
+        - parquet # Permet à DuckDB de lire/écrire le Parquet

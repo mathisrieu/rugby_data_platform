@@ -1,0 +1,5 @@
+# Environnement de test (CI + poste de dev). Hérite des contraintes Airflow.
+# ruff est dans requirements-lint.txt, dbt dans requirements-dbt.txt.
+-r requirements.txt
+pytest
+pytest-cov

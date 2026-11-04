@@ -1,0 +1,86 @@
+name: Release
+
+# Déclenchée par un tag de version :  git tag v1.0.0 && git push origin v1.0.0
+# Rejoue toute la CI, construit l'image, l'exporte en artefact (aucun registre)
+# et crée la GitHub Release.
+
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+    permissions:
+      contents: read
+
+  release:
+    name: Image + GitHub Release
+    needs: ci
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write # création de la Release uniquement
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Version
+        id: version
+        run: echo "value=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Configurer Buildx
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+
+      - name: Construire l'image (sans push)
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          push: false
+          load: true
+          tags: rugby-data:${{ steps.version.outputs.value }}
+          cache-from: type=gha
+
+      - name: Smoke test de l'image
+        run: bash scripts/smoke_test_image.sh rugby-data:${{ steps.version.outputs.value }}
+
+      - name: Exporter l'image
+        run: docker save rugby-data:${{ steps.version.outputs.value }} | gzip > rugby-data-${{ steps.version.outputs.value }}.tar.gz
+
+      - name: Publier l'image en artefact
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: rugby-data-image-${{ steps.version.outputs.value }}
+          path: rugby-data-${{ steps.version.outputs.value }}.tar.gz
+          retention-days: 30
+          compression-level: 0 # déjà compressé
+
+      - name: Créer la GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          flags=()
+          case "$GITHUB_REF_NAME" in *-*) flags+=(--prerelease) ;; esac
+          gh release create "$GITHUB_REF_NAME" \
+            --repo "$GITHUB_REPOSITORY" \
+            --verify-tag \
+            --title "$GITHUB_REF_NAME" \
+            --generate-notes \
+            "${flags[@]}"
+
+      - name: Comment récupérer l'image
+        env:
+          VERSION: ${{ steps.version.outputs.value }}
+        run: |
+          {
+            echo "### Image Docker ${VERSION}"
+            echo "Télécharger l'artefact \`rugby-data-image-${VERSION}\` de ce run (30 jours), puis :"
+            echo '```bash'
+            echo "gunzip -c rugby-data-${VERSION}.tar.gz | docker load"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

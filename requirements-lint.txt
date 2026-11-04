@@ -1,0 +1,2 @@
+# Linter, installé seul (les contraintes Airflow imposent une vieille version de ruff).
+ruff==0.17.1
