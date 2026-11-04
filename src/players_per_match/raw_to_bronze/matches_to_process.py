@@ -11,7 +11,7 @@ def matches_to_process(path) -> pd.DataFrame:
         df_calendar_silver["date"] = df_calendar_silver["date"].dt.strftime("%d-%m-%Y")
 
 
-    df = df_calendar_silver[(df_calendar_silver["is_loaded"]==False)]
+    df = df_calendar_silver[(df_calendar_silver["is_loaded"]==False)] # noqa: E712
 
     return df
 

@@ -1,6 +1,7 @@
-from bs4 import BeautifulSoup
-from pathlib import Path
 import csv
+from pathlib import Path
+
+from bs4 import BeautifulSoup
 
 
 def scrap_team_metadata(BRONZE_PATH: Path, team, soup: BeautifulSoup):

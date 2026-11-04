@@ -4,6 +4,7 @@ from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
+
 from src.teams.raw_to_bronze.scrap_team_metadata import scrap_team_metadata
 
 
