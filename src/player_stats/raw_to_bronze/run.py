@@ -1,6 +1,7 @@
 #from concurrent.futures import ThreadPoolExecutor
 import logging
 from pathlib import Path
+
 import pandas as pd
 
 from src.config import load_config
@@ -10,8 +11,8 @@ from src.player_stats.raw_to_bronze.processing import (
     define_players_to_process,
     update_calendar,
 )
-from src.player_stats.raw_to_bronze.scrap_player_stats import scrap_player_stats
 from src.player_stats.raw_to_bronze.recovering_run import recovering_run
+from src.player_stats.raw_to_bronze.scrap_player_stats import scrap_player_stats
 from src.utils.logging import setup_logging
 
 

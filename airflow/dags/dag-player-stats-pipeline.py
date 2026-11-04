@@ -7,7 +7,7 @@
 from datetime import datetime
 
 from airflow import DAG
-from airflow.models import Variable
+#from airflow.models import Variable
 from airflow.operators.python import PythonOperator
 from airflow.utils.task_group import TaskGroup
 

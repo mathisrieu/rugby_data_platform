@@ -1,14 +1,15 @@
 #from concurrent.futures import ThreadPoolExecutor
+import json
 import logging
 from pathlib import Path
+
 import pandas as pd
-import json
 
 from src.config import load_config
 from src.player_stats.raw_to_bronze.error_handling import write_error_file
 from src.player_stats.raw_to_bronze.scrap_player_stats import scrap_player_stats
-from src.utils.logging import setup_logging
 from src.recovering.resolve_scrapping_errors import resolve_scrapping_errors
+from src.utils.logging import setup_logging
 
 
 def recovering_run(ENV:str) -> None:

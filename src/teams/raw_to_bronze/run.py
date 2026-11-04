@@ -3,9 +3,9 @@
 # source -> bronze
 
 import logging
+from pathlib import Path
 
 import pandas as pd
-from pathlib import Path
 
 from src.config import load_config
 from src.teams.raw_to_bronze.scrap_team_roster import scrap_team_roster

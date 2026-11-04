@@ -1,5 +1,5 @@
-
 from src.utils.scrapping_config import config_scrap
+
 
 def find_player_url(player_name) -> str:
 

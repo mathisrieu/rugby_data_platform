@@ -1,5 +1,6 @@
 import shutil
 from pathlib import Path
+
 import pandas as pd
 
 from src.player_stats.silver_to_gold.run import run as run_silver_to_gold
