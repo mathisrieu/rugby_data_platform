@@ -114,7 +114,7 @@ jobs:
         run: pytest tests/test_dag_integrity.py -v
 
   dbt:
-    name: Tests dbt et Silver → Gold
+    name: Tests dbt
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
@@ -141,6 +141,9 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements-dev.txt
           python -m pip install -r requirements-dbt.txt
+      
+      - name: Préparer le répertoire DuckDB
+        run: mkdir -p /tmp/dbt
 
       - name: Valider les modèles dbt
         run: dbt parse
