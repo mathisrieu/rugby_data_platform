@@ -2,6 +2,5 @@
 # Environnement de test (CI + poste de dev)
 -r requirements.txt
 
-apache-airflow==2.10.1
 pytest
 pytest-cov
