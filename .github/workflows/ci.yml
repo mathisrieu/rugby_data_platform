@@ -68,7 +68,12 @@ jobs:
           python -m pip install -r requirements-dev.txt
 
       - name: Pytest
-        run: pytest --ignore=tests/test_dag_integrity.py --cov --cov-report=xml
+        run: >
+          pytest
+          --ignore=tests/test_dag_integrity.py
+          --ignore=tests/test_player_stats_silver_to_gold.py
+          --cov
+          --cov-report=xml
 
       - name: Résumé de couverture
         if: ${{ !cancelled() }}
@@ -109,11 +114,12 @@ jobs:
         run: pytest tests/test_dag_integrity.py -v
 
   dbt:
-    name: dbt parse
+    name: Tests dbt et Silver → Gold
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     env:
       DBT_PROFILES_DIR: dbt
+
     steps:
       - name: Récupérer le code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -125,13 +131,22 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
-          cache-dependency-path: requirements-dbt.txt
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+            requirements-dbt.txt
 
-      - name: Installer dbt
-        run: pip install -r requirements-dbt.txt
+      - name: Installer les dépendances
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.txt
+          python -m pip install -r requirements-dbt.txt
 
       - name: Valider les modèles dbt
         run: dbt parse
+
+      - name: Tester le pipeline Silver → Gold
+        run: pytest tests/test_player_stats_silver_to_gold.py -v
 
   ci-ok:
     name: CI OK
