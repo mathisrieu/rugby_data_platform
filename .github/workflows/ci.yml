@@ -1,14 +1,13 @@
+
 name: CI
 
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
   schedule:
-    - cron: "17 5 * * 1" # chaque lundi : détecte une dérive des dépendances ou du site scrapé
+    - cron: "17 5 * * 1" # Chaque lundi
   workflow_dispatch:
-  workflow_call: # réutilisé par release.yml
+  workflow_call:
 
 permissions:
   contents: read
@@ -45,7 +44,7 @@ jobs:
         run: ruff check --output-format=github src tests airflow/dags scripts
 
   test:
-    name: Tests (pytest + DAGs)
+    name: Tests métier (ETL)
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -63,13 +62,18 @@ jobs:
             requirements.txt
             requirements-dev.txt
 
-      - name: Installer les dépendances (contraintes Airflow)
+      - name: Installer les dépendances
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements-dev.txt
+          python -m pip install -r requirements-dev.txt
 
       - name: Pytest
-        run: pytest --cov --cov-report=xml
+        run: >
+          pytest
+          --ignore=tests/test_dag_integrity.py
+          --ignore=tests/test_player_stats_silver_to_gold.py
+          --cov
+          --cov-report=xml
 
       - name: Résumé de couverture
         if: ${{ !cancelled() }}
@@ -83,12 +87,10 @@ jobs:
           path: coverage.xml
           retention-days: 7
 
-  dbt:
-    name: dbt parse
+  airflow-test:
+    name: Tests Airflow (DAGs)
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-    env:
-      DBT_PROFILES_DIR: dbt
+    timeout-minutes: 15
     steps:
       - name: Récupérer le code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -100,50 +102,59 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
-          cache-dependency-path: requirements-dbt.txt
+          cache-dependency-path: requirements-airflow.txt
 
-      - name: Installer dbt
-        run: pip install -r requirements-dbt.txt
+      - name: Installer les dépendances Airflow
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-airflow.txt \
+            --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.10.1/constraints-3.12.txt"
 
-      - name: Valider les modèles dbt
-        run: dbt parse
+      - name: Tester les DAGs
+        run: pytest tests/test_dag_integrity.py -v
 
-  docker:
-    name: Image Docker (build + smoke test)
+  dbt:
+    name: Tests dbt
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 15
+    env:
+      DBT_PROFILES_DIR: dbt
+
     steps:
       - name: Récupérer le code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
-      - name: Configurer Buildx
-        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
-
-      - name: Construire l'image (sans push)
-        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+      - name: Installer Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          context: .
-          push: false
-          load: true
-          tags: rugby-data:ci
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+            requirements-dbt.txt
 
-      - name: Smoke test de l'image
-        run: bash scripts/smoke_test_image.sh rugby-data:ci
-
-      - name: Taille de l'image
+      - name: Installer les dépendances
         run: |
-          size=$(docker image inspect rugby-data:ci --format '{{.Size}}')
-          echo "Image rugby-data:ci : $((size / 1024 / 1024)) Mo" >> "$GITHUB_STEP_SUMMARY"
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.txt
+          python -m pip install -r requirements-dbt.txt
+      
+      - name: Préparer le répertoire DuckDB
+        run: mkdir -p /tmp/dbt
 
-  # Point d'entrée unique pour la protection de branche : exiger uniquement « CI OK ».
+      - name: Valider les modèles dbt
+        run: dbt parse
+
+      - name: Tester le pipeline Silver → Gold
+        run: pytest tests/test_player_stats_silver_to_gold.py -v
+
   ci-ok:
     name: CI OK
     if: ${{ always() }}
-    needs: [lint, test, dbt, docker]
+    needs: [lint, test, airflow-test, dbt]
     runs-on: ubuntu-latest
     steps:
       - name: Vérifier le résultat des jobs

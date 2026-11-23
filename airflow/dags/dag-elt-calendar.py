@@ -1,16 +1,11 @@
 # Ce DAG gere le pipeline de recuperation des stats (recuperation des matchs joués, recuperation des joueurs pour chacun des matchs joués, recuperation des stats pour chacun de ces joueurs)
 
 from airflow import DAG
-from airflow.models import Variable
 from airflow.operators.python import PythonOperator
 from datetime import datetime
 
-from match_calendar.raw_to_bronze.run import run as raw_to_bronze
-from match_calendar.bronze_to_silver.run import run as bronze_to_silver
+from src.utils.project_task import run_project_task
 #from match_calendar.silver_to_gold.run import run as silver_to_gold
-
-
-ENV = Variable.get("ENV")
 
 
 with DAG(
@@ -23,14 +18,14 @@ with DAG(
 
     calendar_raw_to_bronze = PythonOperator(
         task_id="calendar_raw_to_bronze",
-        python_callable=raw_to_bronze,
-        op_args=[ENV]
+        python_callable=run_project_task,
+        op_args=["match_calendar.raw_to_bronze.run", "{{ var.value.ENV }}"]
     )
 
     calendar_bronze_to_silver = PythonOperator(
         task_id="calendar_bronze_to_silver",
-        python_callable=bronze_to_silver,
-        op_args=[ENV]
+        python_callable=run_project_task,
+        op_args=["match_calendar.bronze_to_silver.run", "{{ var.value.ENV }}"]
     )
 
     # calendar_silver_to_gold = PythonOperator(
@@ -41,5 +36,3 @@ with DAG(
 
 
     calendar_raw_to_bronze >> calendar_bronze_to_silver #>> calendar_silver_to_gold
-
-

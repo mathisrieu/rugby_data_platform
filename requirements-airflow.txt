@@ -1,0 +1,5 @@
+# Environnement dédié aux tests d'intégrité des DAGs
+apache-airflow==2.10.1
+apache-airflow-providers-docker==3.13.0
+docker==7.1.0
+pytest

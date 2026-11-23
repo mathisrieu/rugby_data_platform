@@ -30,7 +30,11 @@ def run(ENV:str, competition:str, season:str) -> None:
     logger.info("**** Launching pipeline ****")
 
     try:
-        matches_to_process = define_matches_to_process(config.SILVER_PATH)
+        matches_to_process = define_matches_to_process(
+            config.SILVER_PATH,
+            competition,
+            season,
+        )
         logger.info(f"Matches to process : {matches_to_process}")
     except Exception :
         logger.exception("Error during function 'define_matches_to_process' ")
@@ -79,5 +83,4 @@ def run(ENV:str, competition:str, season:str) -> None:
 
 
 #run("INT", "top-14", "2026-2027")
-
 

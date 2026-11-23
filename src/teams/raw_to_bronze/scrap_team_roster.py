@@ -41,4 +41,3 @@ def scrap_team_roster(BRONZE_PATH:Path, team) -> None:
 
     #print(f"HTML file saved at {html_path}")
 
-scrap_team_roster(Path("/Volumes/rugby_data/DEV/data"), "bordeaux")

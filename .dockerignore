@@ -1,0 +1,41 @@
+
+# Git
+.git
+.gitignore
+.github/
+
+# Documentation et portfolio
+docs/
+README.md
+
+# Airflow : géré séparément sur VM-1
+airflow/
+
+# Tests et outils de développement
+tests/
+scripts/
+requirements-dev.txt
+requirements-lint.txt
+pyproject.toml
+
+# Environnements Python locaux
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Configurations et secrets locaux
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Fichiers système
+.DS_Store
+
+# Autres
+other/
+logs/
+data/
+.vscode/

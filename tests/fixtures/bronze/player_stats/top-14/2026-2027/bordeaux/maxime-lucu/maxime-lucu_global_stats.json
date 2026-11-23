@@ -1,0 +1,1114 @@
+{
+    "competition": {
+        "rid": "102",
+        "oid": "203",
+        "ovid": "1002",
+        "name": "TOP 14",
+        "logo": "https://eu-cdn.rugbypass.com/images/competitions/logos/png/top-14.png?v=1762927429",
+        "logoCircle": "https://eu-cdn.rugbypass.com/images/competitions/logos/circle/top-14.png?v=1762927429",
+        "season": {
+            "season": 202601,
+            "years": {
+                "2026": 2026,
+                "2027": 2027
+            },
+            "label": "2026/2027",
+            "completed": 0,
+            "standings": 1,
+            "started": 1,
+            "months": 0,
+            "games": 187
+        },
+        "stats": {
+            "success": 1,
+            "stats": {
+                "teamId": 5979,
+                "tryScored": 1,
+                "conversion": 10,
+                "missedConversion": 5,
+                "missedPenaltyGoal": 1,
+                "goalAttempts": 16,
+                "missedGoals": 6,
+                "successfulGoals": 10,
+                "points": 25,
+                "percentGoals": 62.5,
+                "appearances": 5,
+                "minutesPlayed": 321,
+                "minutesPlayedFirstHalf": 160,
+                "minutesPlayedSecondHalf": 161,
+                "carries": 33,
+                "metresMade": 150,
+                "passes": 257,
+                "offload": 2,
+                "tryAssist": 4,
+                "defenderBeaten": 8,
+                "cleanBreak": 3,
+                "totalTurnovers": 7,
+                "crossedGainline": 18,
+                "failedGainline": 12,
+                "neutral": 3,
+                "carriedOver": 1,
+                "lostBallForced": 1,
+                "droppedBallUnforced": 5,
+                "handlingError": 6,
+                "dominantContact": 2,
+                "errors": 7,
+                "postContactMetres": 19,
+                "breakAssist": 7,
+                "carryDistance": 171,
+                "metresInContact": 19,
+                "tackle": 28,
+                "missedTackle": 2,
+                "turnoverWon": 1,
+                "totalAttemptedTackles": 35,
+                "totalSuccessfulTackles": 28,
+                "totalUnsuccessfulTackles": 7,
+                "outOfGame": 5,
+                "backInGame": 14,
+                "contestedBreakdown": 6,
+                "trapped": 1,
+                "upperBodyTackles": 19,
+                "lowerBodyTackles": 15,
+                "percentTackleMade": 80,
+                "percentLowerBodyTackles": 44.12,
+                "percentUpperBodyTackles": 55.88,
+                "lineoutsWonOwnThrow": 1,
+                "kicksInPlay": 44,
+                "retainedKick": 10,
+                "fiftyTwentyTwoKick": 4,
+                "territorial": 32,
+                "kickBox": 31,
+                "contestable": 9,
+                "attackingKicks": 12,
+                "kickBounced": 11,
+                "kickChargedDown": 1,
+                "penaltyKickMetres": 92,
+                "kickMetres": 1623,
+                "allKickMetres": 1715,
+                "restartOppCollection": 1,
+                "totalRestarts": 1,
+                "restart50m": 1,
+                "defensiveCatch": 7,
+                "defensiveCatchSuccess": 1,
+                "restartCatch": 3,
+                "restartCatchSuccess": 3,
+                "duelDefence": 5,
+                "aerialContest": 5
+            },
+            "topPlayerStats": {
+                "penaltyGoal": {
+                    "id": 128851,
+                    "value": 4
+                },
+                "goalAttempts": {
+                    "id": 100043,
+                    "value": 16
+                },
+                "successfulGoals": {
+                    "id": 109697,
+                    "value": 10
+                },
+                "points": {
+                    "id": 109697,
+                    "value": 33
+                },
+                "percentGoals": {
+                    "id": 128851,
+                    "value": 100
+                },
+                "appearances": {
+                    "id": 116177,
+                    "value": 5
+                },
+                "minutesPlayed": {
+                    "id": 254574,
+                    "value": 339
+                },
+                "minutesPlayedFirstHalf": {
+                    "id": 233130,
+                    "value": 160
+                },
+                "minutesPlayedSecondHalf": {
+                    "id": 254574,
+                    "value": 183
+                },
+                "penaltyConceded": {
+                    "id": 182133,
+                    "value": 3
+                },
+                "penaltyDefence": {
+                    "id": 128851,
+                    "value": 2
+                },
+                "offside": {
+                    "id": 182133,
+                    "value": 3
+                },
+                "carries": {
+                    "id": 137493,
+                    "value": 45
+                },
+                "metresMade": {
+                    "id": 137493,
+                    "value": 200
+                },
+                "passes": {
+                    "id": 254574,
+                    "value": 273
+                },
+                "offload": {
+                    "id": 137493,
+                    "value": 7
+                },
+                "defenderBeaten": {
+                    "id": 137493,
+                    "value": 13
+                },
+                "cleanBreak": {
+                    "id": 137493,
+                    "value": 7
+                },
+                "totalTurnovers": {
+                    "id": 254580,
+                    "value": 8
+                },
+                "crossedGainline": {
+                    "id": 137493,
+                    "value": 27
+                },
+                "failedGainline": {
+                    "id": 182133,
+                    "value": 16
+                },
+                "neutral": {
+                    "id": 254574,
+                    "value": 6
+                },
+                "lostBallForced": {
+                    "id": 182133,
+                    "value": 2
+                },
+                "handlingError": {
+                    "id": 100043,
+                    "value": 6
+                },
+                "dominantContact": {
+                    "id": 100512,
+                    "value": 6
+                },
+                "errors": {
+                    "id": 254580,
+                    "value": 8
+                },
+                "postContactMetres": {
+                    "id": 179356,
+                    "value": 34
+                },
+                "carryDistance": {
+                    "id": 137493,
+                    "value": 231
+                },
+                "metresInContact": {
+                    "id": 179356,
+                    "value": 34
+                },
+                "kickError": {
+                    "id": 233130,
+                    "value": 3
+                },
+                "kicksInPlay": {
+                    "id": 237823,
+                    "value": 49
+                },
+                "retainedKick": {
+                    "id": 100043,
+                    "value": 10
+                },
+                "fiftyTwentyTwoKick": {
+                    "id": 100043,
+                    "value": 4
+                },
+                "territorial": {
+                    "id": 100043,
+                    "value": 32
+                },
+                "kickBox": {
+                    "id": 237823,
+                    "value": 47
+                },
+                "contestable": {
+                    "id": 237823,
+                    "value": 16
+                },
+                "attackingKicks": {
+                    "id": 237823,
+                    "value": 24
+                },
+                "kickBounced": {
+                    "id": 100043,
+                    "value": 11
+                },
+                "kickMetres": {
+                    "id": 100043,
+                    "value": 1623
+                },
+                "allKickMetres": {
+                    "id": 100043,
+                    "value": 1715
+                },
+                "tackle": {
+                    "id": 116177,
+                    "value": 42
+                },
+                "missedTackle": {
+                    "id": 233130,
+                    "value": 9
+                },
+                "turnoverWon": {
+                    "id": 110169,
+                    "value": 4
+                },
+                "totalAttemptedTackles": {
+                    "id": 116177,
+                    "value": 56
+                },
+                "totalSuccessfulTackles": {
+                    "id": 116177,
+                    "value": 42
+                },
+                "totalUnsuccessfulTackles": {
+                    "id": 233130,
+                    "value": 20
+                },
+                "jackalTurnoverWon": {
+                    "id": 128851,
+                    "value": 2
+                },
+                "outOfGame": {
+                    "id": 138386,
+                    "value": 9
+                },
+                "backInGame": {
+                    "id": 116177,
+                    "value": 28
+                },
+                "contestedBreakdown": {
+                    "id": 158114,
+                    "value": 11
+                },
+                "upperBodyTackles": {
+                    "id": 116177,
+                    "value": 37
+                },
+                "lowerBodyTackles": {
+                    "id": 233130,
+                    "value": 22
+                },
+                "percentTackleMade": {
+                    "id": 184178,
+                    "value": 80
+                },
+                "percentLowerBodyTackles": {
+                    "id": 182133,
+                    "value": 58.33
+                },
+                "percentUpperBodyTackles": {
+                    "id": 161477,
+                    "value": 100
+                },
+                "carriedInTouch": {
+                    "id": 254580,
+                    "value": 1
+                },
+                "droppedBallUnforced": {
+                    "id": 100043,
+                    "value": 5
+                },
+                "lostInRuckOrMaul": {
+                    "id": 254580,
+                    "value": 2
+                },
+                "interception": {
+                    "id": 254580,
+                    "value": 1
+                },
+                "dominantTackleContact": {
+                    "id": 254017,
+                    "value": 2
+                },
+                "trapped": {
+                    "id": 138386,
+                    "value": 6
+                },
+                "tryScored": {
+                    "id": 182133,
+                    "value": 3
+                },
+                "yellowCard": {
+                    "id": 116177,
+                    "value": 1
+                },
+                "penaltyOffence": {
+                    "id": 262095,
+                    "value": 2
+                },
+                "dissent": {
+                    "id": 116177,
+                    "value": 1
+                },
+                "foulPlay": {
+                    "id": 116177,
+                    "value": 1
+                },
+                "sinBinEnd": {
+                    "id": 116177,
+                    "value": 1
+                },
+                "tryAssist": {
+                    "id": 237823,
+                    "value": 5
+                },
+                "otherError": {
+                    "id": 116177,
+                    "value": 1
+                },
+                "breakAssist": {
+                    "id": 100043,
+                    "value": 7
+                },
+                "tackleTurnoverWon": {
+                    "id": 116177,
+                    "value": 2
+                },
+                "defensiveCatch": {
+                    "id": 100043,
+                    "value": 7
+                },
+                "defensiveCatchSuccess": {
+                    "id": 237823,
+                    "value": 3
+                },
+                "restartCatch": {
+                    "id": 109697,
+                    "value": 7
+                },
+                "restartCatchSuccess": {
+                    "id": 109697,
+                    "value": 7
+                },
+                "tapBack": {
+                    "id": 138386,
+                    "value": 2
+                },
+                "tapBackSuccess": {
+                    "id": 138386,
+                    "value": 2
+                },
+                "aerialContest": {
+                    "id": 237823,
+                    "value": 5
+                },
+                "aerialContestWon": {
+                    "id": 138386,
+                    "value": 2
+                },
+                "percentAerialContestWon": {
+                    "id": 133837,
+                    "value": 100
+                },
+                "duelDefence": {
+                    "id": 100043,
+                    "value": 5
+                },
+                "tryKick": {
+                    "id": 110169,
+                    "value": 1
+                },
+                "kickChargedDown": {
+                    "id": 158114,
+                    "value": 3
+                },
+                "jackalPenaltyWon": {
+                    "id": 110169,
+                    "value": 1
+                },
+                "counterRuck": {
+                    "id": 110169,
+                    "value": 2
+                },
+                "scrumOffence": {
+                    "id": 237823,
+                    "value": 2
+                },
+                "freeKick": {
+                    "id": 237823,
+                    "value": 2
+                },
+                "missedConversion": {
+                    "id": 100043,
+                    "value": 5
+                },
+                "missedPenaltyGoal": {
+                    "id": 253370,
+                    "value": 1
+                },
+                "missedGoals": {
+                    "id": 100043,
+                    "value": 6
+                },
+                "dissentAdvance": {
+                    "id": 138386,
+                    "value": 1
+                },
+                "attemptedInterception": {
+                    "id": 138386,
+                    "value": 1
+                },
+                "lostClean": {
+                    "id": 138386,
+                    "value": 1
+                },
+                "lineoutThrowsLost": {
+                    "id": 109697,
+                    "value": 2
+                },
+                "throwFront": {
+                    "id": 109697,
+                    "value": 2
+                },
+                "deliberateKnockOn": {
+                    "id": 188057,
+                    "value": 1
+                },
+                "badPass": {
+                    "id": 212775,
+                    "value": 1
+                },
+                "notReleasing": {
+                    "id": 262095,
+                    "value": 2
+                },
+                "offFeetAtRuck": {
+                    "id": 237823,
+                    "value": 1
+                },
+                "attackingCatch": {
+                    "id": 237823,
+                    "value": 1
+                },
+                "duelDefenceSuccess": {
+                    "id": 237823,
+                    "value": 2
+                },
+                "offsideAtKick": {
+                    "id": 182133,
+                    "value": 1
+                },
+                "collapsingMaul": {
+                    "id": 137493,
+                    "value": 1
+                },
+                "wonClean": {
+                    "id": 137493,
+                    "value": 1
+                },
+                "lineoutsWonOwnThrow": {
+                    "id": 100512,
+                    "value": 2
+                },
+                "lineoutThrowsWon": {
+                    "id": 137493,
+                    "value": 1
+                },
+                "penaltyKickMetres": {
+                    "id": 262095,
+                    "value": 317
+                },
+                "conversion": {
+                    "id": 100043,
+                    "value": 10
+                },
+                "lostHandlingError": {
+                    "id": 109697,
+                    "value": 1
+                },
+                "throwBack": {
+                    "id": 109697,
+                    "value": 1
+                },
+                "carriedOver": {
+                    "id": 100043,
+                    "value": 1
+                },
+                "restartOppCollection": {
+                    "id": 262095,
+                    "value": 10
+                },
+                "totalRestarts": {
+                    "id": 262095,
+                    "value": 11
+                },
+                "restart50m": {
+                    "id": 262095,
+                    "value": 9
+                },
+                "obstruction": {
+                    "id": 100512,
+                    "value": 1
+                },
+                "notRollingAway": {
+                    "id": 179356,
+                    "value": 1
+                },
+                "restartRetained": {
+                    "id": 262095,
+                    "value": 1
+                },
+                "restartsRetained": {
+                    "id": 262095,
+                    "value": 1
+                },
+                "restartGoalLine": {
+                    "id": 262095,
+                    "value": 2
+                },
+                "percentRestartsRetained": {
+                    "id": 262095,
+                    "value": 9.09
+                }
+            }
+        },
+        "epoch": 1791745500
+    },
+    "main": {
+        "totalMinsPlayed": 321,
+        "main": [
+            {
+                "value": 257,
+                "title": "Successful Passes"
+            },
+            {
+                "value": "100%",
+                "title": "Pass Accuracy"
+            },
+            {
+                "value": 28,
+                "title": "Tackles Completed"
+            },
+            {
+                "value": 33,
+                "title": "Carries"
+            },
+            {
+                "value": 1,
+                "title": "Tries"
+            },
+            {
+                "value": 4,
+                "title": "Try Assists"
+            }
+        ],
+        "profile": [
+            {
+                "value": "94%",
+                "title": "Successful Passes",
+                "type": 1,
+                "key": "passes",
+                "raw": 257,
+                "top": 273,
+                "color": "#4fa263"
+            },
+            {
+                "value": "100%",
+                "title": "Pass Accuracy",
+                "type": 1,
+                "key": "pass_accuracy",
+                "raw": "100%",
+                "top": 0,
+                "color": "#479d6c"
+            },
+            {
+                "value": "67%",
+                "title": "Tackles Completed",
+                "type": 1,
+                "key": "totalSuccessfulTackles",
+                "raw": 28,
+                "top": 42,
+                "color": "#b0bb45"
+            },
+            {
+                "value": "73%",
+                "title": "Carries",
+                "type": 1,
+                "key": "carries",
+                "raw": 33,
+                "top": 45,
+                "color": "#96b549"
+            },
+            {
+                "value": "33%",
+                "title": "Tries",
+                "type": 1,
+                "key": "tryScored",
+                "raw": 1,
+                "top": 3,
+                "color": "#e6943a"
+            },
+            {
+                "value": "80%",
+                "title": "Try Assists",
+                "type": 1,
+                "key": "tryAssist",
+                "raw": 4,
+                "top": 5,
+                "color": "#7bae4f"
+            }
+        ]
+    },
+    "group": {
+        "groups": [
+            {
+                "title": "Attack",
+                "stats": [
+                    {
+                        "title": "Points",
+                        "value": {
+                            "value": 25,
+                            "title": "Points"
+                        },
+                        "overall": {
+                            "value": "76%",
+                            "title": "Points",
+                            "type": 1,
+                            "key": "points",
+                            "raw": 25,
+                            "top": 33,
+                            "color": "#8ab24b"
+                        }
+                    },
+                    {
+                        "title": "Tries",
+                        "value": {
+                            "value": 1,
+                            "title": "Tries"
+                        },
+                        "overall": {
+                            "value": "33%",
+                            "title": "Tries",
+                            "type": 1,
+                            "key": "tryScored",
+                            "raw": 1,
+                            "top": 3,
+                            "color": "#e6943a"
+                        }
+                    },
+                    {
+                        "title": "Line Breaks",
+                        "value": {
+                            "value": 3,
+                            "title": "Line Breaks"
+                        },
+                        "overall": {
+                            "value": "43%",
+                            "title": "Line Breaks",
+                            "type": 1,
+                            "key": "cleanBreak",
+                            "raw": 3,
+                            "top": 7,
+                            "color": "#efb240"
+                        }
+                    },
+                    {
+                        "title": "Carries",
+                        "value": {
+                            "value": 33,
+                            "title": "Carries"
+                        },
+                        "overall": {
+                            "value": "73%",
+                            "title": "Carries",
+                            "type": 1,
+                            "key": "carries",
+                            "raw": 33,
+                            "top": 45,
+                            "color": "#96b549"
+                        }
+                    },
+                    {
+                        "title": "Carries Per Minute",
+                        "value": {
+                            "value": 0.1,
+                            "title": "Carries Per Minute"
+                        },
+                        "overall": {
+                            "value": "2%",
+                            "title": "Carries Per Minute",
+                            "type": 1,
+                            "key": "carries",
+                            "raw": 0,
+                            "top": 45,
+                            "color": "#cf403a"
+                        }
+                    },
+                    {
+                        "title": "Metres Carried",
+                        "value": {
+                            "value": 150,
+                            "title": "Metres Carried"
+                        },
+                        "overall": {
+                            "value": "75%",
+                            "title": "Metres Carried",
+                            "type": 1,
+                            "key": "metresMade",
+                            "raw": 150,
+                            "top": 200,
+                            "color": "#8eb34a"
+                        }
+                    },
+                    {
+                        "title": "Turnovers Won",
+                        "value": {
+                            "value": 1,
+                            "title": "Turnovers Won"
+                        },
+                        "overall": {
+                            "value": "25%",
+                            "title": "Turnovers Won",
+                            "type": 1,
+                            "key": "turnoverWon",
+                            "raw": 1,
+                            "top": 4,
+                            "color": "#e07d37"
+                        }
+                    },
+                    {
+                        "title": "Defenders Beaten",
+                        "value": {
+                            "value": 8,
+                            "title": "Defenders Beaten"
+                        },
+                        "overall": {
+                            "value": "62%",
+                            "title": "Defenders Beaten",
+                            "type": 1,
+                            "key": "defenderBeaten",
+                            "raw": 8,
+                            "top": 13,
+                            "color": "#c5bf44"
+                        }
+                    },
+                    {
+                        "title": "Post Contact Metres",
+                        "value": {
+                            "value": 19,
+                            "title": "Post Contact Metres"
+                        },
+                        "overall": {
+                            "value": "56%",
+                            "title": "Post Contact Metres",
+                            "type": 1,
+                            "key": "postContactMetres",
+                            "raw": 19,
+                            "top": 34,
+                            "color": "#e0c544"
+                        }
+                    }
+                ]
+            },
+            {
+                "title": "Defence",
+                "stats": [
+                    {
+                        "title": "Tackles Made",
+                        "value": {
+                            "value": 35,
+                            "title": "Tackles Made"
+                        },
+                        "overall": {
+                            "value": "63%",
+                            "title": "Tackles Made",
+                            "type": 1,
+                            "key": "totalAttemptedTackles",
+                            "raw": 35,
+                            "top": 56,
+                            "color": "#c1be44"
+                        }
+                    },
+                    {
+                        "title": "Tackles Completed",
+                        "value": {
+                            "value": 28,
+                            "title": "Tackles Completed"
+                        },
+                        "overall": {
+                            "value": "67%",
+                            "title": "Tackles Completed",
+                            "type": 1,
+                            "key": "totalSuccessfulTackles",
+                            "raw": 28,
+                            "top": 42,
+                            "color": "#b0bb45"
+                        }
+                    },
+                    {
+                        "title": "Dominant Tackles",
+                        "value": {
+                            "value": 0,
+                            "title": "Dominant Tackles"
+                        },
+                        "overall": {
+                            "value": "2%",
+                            "title": "Dominant Tackles",
+                            "type": 1,
+                            "key": "dominantTackleContact",
+                            "raw": 0,
+                            "top": 2,
+                            "color": "#cf403a"
+                        }
+                    },
+                    {
+                        "title": "Tackles Per Minute",
+                        "value": {
+                            "value": 0.09,
+                            "title": "Tackles Per Minute"
+                        },
+                        "overall": {
+                            "value": "2%",
+                            "title": "Tackles Per Minute",
+                            "type": 1,
+                            "key": "tackle",
+                            "raw": 0,
+                            "top": 42,
+                            "color": "#cf403a"
+                        }
+                    },
+                    {
+                        "title": "Turnovers Won",
+                        "value": {
+                            "value": 1,
+                            "title": "Turnovers Won"
+                        },
+                        "overall": {
+                            "value": "25%",
+                            "title": "Turnovers Won",
+                            "type": 1,
+                            "key": "turnoverWon",
+                            "raw": 1,
+                            "top": 4,
+                            "color": "#e07d37"
+                        }
+                    }
+                ]
+            },
+            {
+                "title": "Passing",
+                "stats": [
+                    {
+                        "title": "Try Assists",
+                        "value": {
+                            "value": 4,
+                            "title": "Try Assists"
+                        },
+                        "overall": {
+                            "value": "80%",
+                            "title": "Try Assists",
+                            "type": 1,
+                            "key": "tryAssist",
+                            "raw": 4,
+                            "top": 5,
+                            "color": "#7bae4f"
+                        }
+                    },
+                    {
+                        "title": "Successful Passes",
+                        "value": {
+                            "value": 257,
+                            "title": "Successful Passes"
+                        },
+                        "overall": {
+                            "value": "94%",
+                            "title": "Successful Passes",
+                            "type": 1,
+                            "key": "passes",
+                            "raw": 257,
+                            "top": 273,
+                            "color": "#4fa263"
+                        }
+                    },
+                    {
+                        "title": "Bad Passes",
+                        "value": {
+                            "value": 0,
+                            "title": "Bad Passes"
+                        },
+                        "overall": {
+                            "value": "2%",
+                            "title": "Bad Passes",
+                            "type": 1,
+                            "key": "badPass",
+                            "raw": 0,
+                            "top": 1,
+                            "color": "#cf403a"
+                        }
+                    },
+                    {
+                        "title": "Pass Accuracy",
+                        "value": {
+                            "value": "100%",
+                            "title": "Pass Accuracy"
+                        },
+                        "overall": {
+                            "value": "100%",
+                            "title": "Pass Accuracy",
+                            "type": 1,
+                            "key": "pass_accuracy",
+                            "raw": "100%",
+                            "top": 0,
+                            "color": "#479d6c"
+                        }
+                    }
+                ]
+            },
+            {
+                "title": "Kicking",
+                "stats": [
+                    {
+                        "title": "Successful Penalties",
+                        "value": {
+                            "value": 0,
+                            "title": "Successful Penalties"
+                        },
+                        "overall": {
+                            "value": "2%",
+                            "title": "Successful Penalties",
+                            "type": 1,
+                            "key": "penaltyGoal",
+                            "raw": 0,
+                            "top": 4,
+                            "color": "#cf403a"
+                        }
+                    },
+                    {
+                        "title": "Successful Conversions",
+                        "value": {
+                            "value": 10,
+                            "title": "Successful Conversions"
+                        },
+                        "overall": {
+                            "value": "100%",
+                            "title": "Successful Conversions",
+                            "type": 1,
+                            "key": "conversion",
+                            "raw": 10,
+                            "top": 10,
+                            "color": "#479d6c"
+                        }
+                    },
+                    {
+                        "title": "Kicks in Play",
+                        "value": {
+                            "value": 44,
+                            "title": "Kicks in Play"
+                        },
+                        "overall": {
+                            "value": "90%",
+                            "title": "Kicks in Play",
+                            "type": 1,
+                            "key": "kicksInPlay",
+                            "raw": 44,
+                            "top": 49,
+                            "color": "#59a55c"
+                        }
+                    },
+                    {
+                        "title": "Drop Goals",
+                        "value": {
+                            "value": 0,
+                            "title": "Drop Goals"
+                        },
+                        "overall": {
+                            "value": "2%",
+                            "title": "Drop Goals",
+                            "type": 1,
+                            "key": "dropGoal",
+                            "raw": 0,
+                            "top": 0,
+                            "color": "#ce3d3b"
+                        }
+                    },
+                    {
+                        "title": "Goals Converted",
+                        "value": {
+                            "value": 10,
+                            "title": "Goals Converted"
+                        },
+                        "overall": {
+                            "value": "100%",
+                            "title": "Goals Converted",
+                            "type": 1,
+                            "key": "successfulGoals",
+                            "raw": 10,
+                            "top": 10,
+                            "color": "#479d6c"
+                        }
+                    }
+                ]
+            },
+            {
+                "title": "Discipline",
+                "stats": [
+                    {
+                        "title": "Penalties Conceded",
+                        "value": {
+                            "value": 0,
+                            "title": "Penalties Conceded"
+                        },
+                        "overall": {
+                            "value": "2%",
+                            "title": "Penalties Conceded",
+                            "type": 1,
+                            "key": "penaltyConceded",
+                            "raw": 0,
+                            "top": 3,
+                            "color": "#cf403a"
+                        }
+                    },
+                    {
+                        "title": "Yellow Cards",
+                        "value": {
+                            "value": 0,
+                            "title": "Yellow Cards"
+                        },
+                        "overall": {
+                            "value": "2%",
+                            "title": "Yellow Cards",
+                            "type": 1,
+                            "key": "yellowCard",
+                            "raw": 0,
+                            "top": 1,
+                            "color": "#cf403a"
+                        }
+                    },
+                    {
+                        "title": "Red Cards",
+                        "value": {
+                            "value": 0,
+                            "title": "Red Cards"
+                        },
+                        "overall": {
+                            "value": "2%",
+                            "title": "Red Cards",
+                            "type": 1,
+                            "key": "redCard",
+                            "raw": 0,
+                            "top": 0,
+                            "color": "#ce3d3b"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "player_url": "https://www.rugbypass.com/players/maxime-lucu/"
+}

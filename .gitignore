@@ -138,6 +138,7 @@ celerybeat.pid
 .env
 .envrc
 .venv
+.venv-airflow
 env/
 venv/
 ENV/
@@ -219,6 +220,7 @@ __pycache__/
 *.log
 logs/
 data/tmp/
+data/
 airflow/airflow.db
 
 # Fichiers locaux et donnees generees
@@ -234,5 +236,4 @@ airflow/webserver_config.py
 
 # dbt
 dbt/.user.yml
-
 
