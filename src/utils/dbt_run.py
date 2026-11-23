@@ -1,31 +1,33 @@
+import json
 import logging
 import subprocess
 
 logger = logging.getLogger(__name__)
 
 
-def dbt_run (dbt_model: str, dbt_vars: dict):
+def dbt_run(dbt_model: str, dbt_vars: dict) -> None:
+    command = [
+        "dbt",
+        "run",
+        "--select",
+        dbt_model,
+        "--vars",
+        json.dumps(dbt_vars),
+    ]
 
-    command = f"dbt run --select {dbt_model} --vars '{dbt_vars}'"
-
-    # Execute the command
     try:
-        subprocess.run(command, shell=True, capture_output=True, text=True, check=True)
-        logger.info(f"dbt model '{dbt_model}' executing with success")
+        result = subprocess.run(
+            command,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
 
+        logger.info("dbt model '%s' executed successfully", dbt_model)
+        logger.debug("dbt output:\n%s", result.stdout)
 
-    except subprocess.CalledProcessError:
-
-        logger.exception(f"Error during execution of the dbt model '{dbt_model}")
+    except subprocess.CalledProcessError as exc:
+        logger.error("Error during execution of dbt model '%s'", dbt_model)
+        logger.error("dbt stdout:\n%s", exc.stdout)
+        logger.error("dbt stderr:\n%s", exc.stderr)
         raise
-
-
-
-# values for test
-# dbt_run("silver",
-#         {"target_player_name": "matthias-haddad",
-#         "team": "la-rochelle",
-#         "match_label": "toulon-la-rochelle",
-#         "is_the_first_file": 1,
-#         "BRONZE_PATH": "/Volumes/rugby_data/DEV/data/bronze",
-#         "SILVER_PATH": "/Volumes/rugby_data/DEV/data/silver"})

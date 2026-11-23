@@ -1,60 +1,13 @@
+
 import os
 from dataclasses import dataclass
 from pathlib import Path
 
-PROJECT_ROOT = Path(
-    os.environ.get(
-        "RUGBY_DATA_DIR",
-        Path(__file__).resolve().parents[1] / "data",
-    )
-).expanduser().resolve()
-
-ENVIRONMENTS = {
-    "PROD": {
-        "CONTEXT_PATH": PROJECT_ROOT / "PROD/context",
-        "TMP_PATH": PROJECT_ROOT / "PROD/tmp",
-        "LOGS_PATH": PROJECT_ROOT / "PROD/logs",
-        "ERRORS_PATH": PROJECT_ROOT / "PROD/errors",
-        "BRONZE_PATH": PROJECT_ROOT / "PROD/data/bronze",
-        "SILVER_PATH": PROJECT_ROOT / "PROD/data/silver",
-        "GOLD_PATH": PROJECT_ROOT / "PROD/data/gold",
-    },
-    "AP": {
-        "CONTEXT_PATH": PROJECT_ROOT / "AP/context",
-        "TMP_PATH": PROJECT_ROOT / "AP/tmp",
-        "LOGS_PATH": PROJECT_ROOT / "AP/logs",
-        "ERRORS_PATH": PROJECT_ROOT / "AP/errors",
-        "BRONZE_PATH": PROJECT_ROOT / "AP/data/bronze",
-        "SILVER_PATH": PROJECT_ROOT / "AP/data/silver",
-        "GOLD_PATH": PROJECT_ROOT / "AP/data/gold",
-    },
-    "INT": {
-        "CONTEXT_PATH": PROJECT_ROOT / "INT/context",
-        "TMP_PATH": PROJECT_ROOT / "INT/tmp",
-        "LOGS_PATH": PROJECT_ROOT / "INT/logs",
-        "ERRORS_PATH": PROJECT_ROOT / "INT/errors",
-        "BRONZE_PATH": PROJECT_ROOT / "INT/data/bronze",
-        "SILVER_PATH": PROJECT_ROOT / "INT/data/silver",
-        "GOLD_PATH": PROJECT_ROOT / "INT/data/gold",
-        },
-    "DEV": {
-        "CONTEXT_PATH": PROJECT_ROOT / "DEV/context",
-        "TMP_PATH": PROJECT_ROOT / "DEV/tmp",
-        "LOGS_PATH": PROJECT_ROOT / "DEV/logs",
-        "ERRORS_PATH": PROJECT_ROOT / "DEV/errors",
-        "BRONZE_PATH": PROJECT_ROOT / "DEV/data/bronze",
-        "SILVER_PATH": PROJECT_ROOT / "DEV/data/silver",
-        "GOLD_PATH": PROJECT_ROOT / "DEV/data/gold",
-    },
-
-    "SEASON":"2026-2027",
-}
-
-CURRENT_ENV = os.getenv("RUGBY_ENV", "DEV").upper()
-CONFIG = ENVIRONMENTS[CURRENT_ENV]
+ENVIRONMENTS = ("DEV", "INT", "AP", "PROD")
+DEFAULT_SEASON = "2026-2027"
 
 
-@dataclass (frozen=True)
+@dataclass(frozen=True)
 class Config:
     CONTEXT_PATH: Path
     TMP_PATH: Path
@@ -66,35 +19,40 @@ class Config:
     SEASON: str
 
 
-
 def load_config(environment: str | None = None) -> Config:
-    """Retourne les chemins de l'environnement demandé.
+    """Charge les chemins de stockage pour l'environnement demandé.
 
-    L'environnement peut être fourni directement ou via RUGBY_ENV.
-    DEV est utilisé par défaut.
+    RUGBY_DATA_DIR désigne la racine du stockage partagé,
+    par exemple le point de montage Azure File Share.
     """
-    selected_environment = (environment or os.getenv("RUGBY_ENV", "DEV")).upper()
+    selected_environment = (
+        environment or os.getenv("RUGBY_ENV", "DEV")
+    ).upper()
 
-    config = Config(
-        CONTEXT_PATH= ENVIRONMENTS[selected_environment].get("CONTEXT_PATH"),
-        TMP_PATH= ENVIRONMENTS[selected_environment].get("TMP_PATH"),
-        LOGS_PATH= ENVIRONMENTS[selected_environment].get("LOGS_PATH"),
-        ERRORS_PATH= ENVIRONMENTS[selected_environment].get("ERRORS_PATH"),
-        BRONZE_PATH= ENVIRONMENTS[selected_environment].get("BRONZE_PATH"),
-        SILVER_PATH= ENVIRONMENTS[selected_environment].get("SILVER_PATH"),
-        GOLD_PATH= ENVIRONMENTS[selected_environment].get("GOLD_PATH"),
-        SEASON= ENVIRONMENTS.get("SEASON")
-    )
-
-    
-    try:
-        return config
-    except KeyError as error:
-        available_environments = ", ".join(ENVIRONMENTS)
+    if selected_environment not in ENVIRONMENTS:
+        available = ", ".join(ENVIRONMENTS)
         raise ValueError(
-            f"Environnement inconnu: {selected_environment!r}. "
-            f"Valeurs acceptées: {available_environments}"
-        ) from error
+            f"Environnement inconnu : {selected_environment!r}. "
+            f"Valeurs acceptées : {available}"
+        )
 
+    data_dir = os.getenv("RUGBY_DATA_DIR")
+    if not data_dir:
+        raise ValueError(
+            "La variable d'environnement RUGBY_DATA_DIR doit être définie."
+        )
 
+    root = Path(data_dir).expanduser().resolve()
+    env_root = root / selected_environment
+    data_root = env_root / "data"
 
+    return Config(
+        CONTEXT_PATH=env_root / "context",
+        TMP_PATH=env_root / "tmp",
+        LOGS_PATH=env_root / "logs",
+        ERRORS_PATH=env_root / "errors",
+        BRONZE_PATH=data_root / "bronze",
+        SILVER_PATH=data_root / "silver",
+        GOLD_PATH=data_root / "gold",
+        SEASON=os.getenv("RUGBY_SEASON", DEFAULT_SEASON),
+    )

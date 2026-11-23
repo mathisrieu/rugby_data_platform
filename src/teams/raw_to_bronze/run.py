@@ -34,4 +34,4 @@ def run(ENV: str) -> None :
     for team in teams:
         scrap_team_roster(config.BRONZE_PATH, team)
 
-run("DEV")
+#run("DEV")

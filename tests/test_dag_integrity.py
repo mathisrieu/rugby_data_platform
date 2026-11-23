@@ -47,18 +47,24 @@ def test_statistics_dag_exists_for_each_configured_competition_season(dagbag: Da
     assert "player-stats-pipeline" not in dagbag.dag_ids
 
 
+
 def test_statistics_dags_share_pipeline_and_use_their_own_parameters(dagbag: DagBag):
     dag = dagbag.dags["stats_top-14_2026-2027"]
     assert dag is not None
     assert len(dag.tasks) == 9
 
     task = dag.get_task("calendar.raw_to_bronze")
-    assert task.op_args == [
+
+    assert task.command == [
+        "python",
+        "-m",
+        "src.utils.project_task",
         "match_calendar.raw_to_bronze.run",
         "{{ var.value.ENV }}",
         "top-14",
         "2026-2027",
     ]
+
 
 
 def test_statistics_dag_dependencies_are_visible_in_each_dag(dagbag: DagBag):
