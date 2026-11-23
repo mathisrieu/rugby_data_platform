@@ -10,17 +10,11 @@ from src.player_stats.bronze_to_silver.run import run as run_bronze_to_silver
 
 def test_player_stats_bronze_to_silver(tmp_path, monkeypatch):
     # Configuration : les fixtures restent sur le stockage partagé.
-    config = load_config("INT")
-    fixtures_path = config.CONTEXT_PATH.parent / "tests"
+    monkeypatch.setenv("RUGBY_DATA_DIR", str(tmp_path))
+    fixtures_path = Path(__file__).parent / "fixtures"
 
     bronze_fixtures = fixtures_path / "bronze" / "player_stats"
     silver_fixtures = fixtures_path / "silver" / "player_stats"
-
-    # Le test utilise un stockage temporaire pour ne pas modifier INT.
-    test_data_path = tmp_path / "INT" / "data"
-    test_logs_path = tmp_path / "INT" / "logs"
-
-    monkeypatch.setenv("RUGBY_DATA_DIR", str(tmp_path))
 
     test_config = load_config("INT")
     test_config.BRONZE_PATH.mkdir(parents=True, exist_ok=True)

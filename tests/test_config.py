@@ -3,7 +3,6 @@ import pytest
 
 from src.config import ENVIRONMENTS, load_config
 
-
 PATH_FIELDS = (
     "CONTEXT_PATH",
     "TMP_PATH",
