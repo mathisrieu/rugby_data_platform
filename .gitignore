@@ -219,6 +219,7 @@ __pycache__/
 *.log
 logs/
 data/tmp/
+data/
 airflow/airflow.db
 
 # Fichiers locaux et donnees generees
@@ -234,5 +235,4 @@ airflow/webserver_config.py
 
 # dbt
 dbt/.user.yml
-
 

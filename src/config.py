@@ -2,7 +2,12 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 
-PROJECT_ROOT = Path("/Volumes/rugby_data/")
+PROJECT_ROOT = Path(
+    os.environ.get(
+        "RUGBY_DATA_DIR",
+        Path(__file__).resolve().parents[1] / "data",
+    )
+).expanduser().resolve()
 
 ENVIRONMENTS = {
     "PROD": {
@@ -90,7 +95,6 @@ def load_config(environment: str | None = None) -> Config:
             f"Environnement inconnu: {selected_environment!r}. "
             f"Valeurs acceptées: {available_environments}"
         ) from error
-
 
 
 

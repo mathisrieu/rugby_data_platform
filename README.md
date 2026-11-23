@@ -39,7 +39,7 @@ Le dépôt contient des traitements autour de plusieurs sujets :
 - statistiques individuelles de joueurs ;
 - transformations Bronze → Silver → Gold.
 
-Les DAGs de statistiques prévoient notamment les compétitions suivantes : Top 14, Pro D2, Premiership, Champions Cup, Challenge Cup et United Rugby Championship (URC). Les DAGs sont configurés pour être déclenchés manuellement ; leur disponibilité opérationnelle dépend de la configuration Airflow et des sources utilisées.
+Les DAGs de statistiques prévoient notamment les compétitions suivantes : Top 14, Pro D2, Premiership, Champions Cup, Challenge Cup et United Rugby Championship (URC). Un DAG complet est généré pour chaque couple compétition/saison configuré dans `airflow/dags/dag-player-stats.py` ; les tâches et leurs dépendances sont définies une seule fois puis réutilisées. Chaque DAG peut être déclenché manuellement et dispose de ses propres statuts et logs de tâches.
 
 ## Technologies
 
@@ -52,22 +52,37 @@ Les DAGs de statistiques prévoient notamment les compétitions suivantes : Top 
 | Qualité du code et tests | Ruff, pytest |
 | Exécution reproductible | Docker, GitHub Actions |
 
-## Démarrer avec Docker
+## Démarrer en local avec Docker Compose
 
-Le dépôt fournit une image Docker contenant Airflow, le code du projet et un environnement dbt séparé.
+Tout tourne sur ta machine dans un seul conteneur : Airflow, le code Python et dbt. Compose construit l'image du projet, conserve l'état d'Airflow et stocke les données dans le dossier local `data/`. Il n'est pas nécessaire de lancer une commande Airflow séparément.
 
 ```bash
-docker build -t rugby-data .
 mkdir -p data
-docker run --rm -p 8080:8080 \
-  -e AIRFLOW_VAR_ENV=DEV \
-  -v "$PWD/data:/Volumes/rugby_data" \
-  rugby-data airflow standalone
+export AIRFLOW_UID="$(id -u)"
+docker compose up --build -d
 ```
 
-L'interface Airflow est ensuite accessible à l'adresse `http://localhost:8080`. Le montage conserve les données de l'environnement `DEV` dans le dossier local `data/`.
+Ouvre ensuite `http://localhost:8081`. Au premier démarrage, Airflow crée un compte administrateur et affiche ses identifiants dans les logs :
 
-> **Configuration :** les chemins de données du projet sont définis à partir de `/Volumes/rugby_data` dans `src/config.py`. Si tu changes le point de montage Docker ou exécutes le projet hors de ce conteneur, adapte la configuration des chemins en conséquence. Dans Airflow, `AIRFLOW_VAR_ENV` fournit la variable Airflow `ENV`.
+```bash
+docker compose logs airflow
+```
+
+Commandes courantes :
+
+```bash
+docker compose stop       # arrêter sans supprimer le conteneur
+docker compose start      # redémarrer
+docker compose down       # supprimer le conteneur, garder l'état Airflow
+docker compose up -d      # recréer/démarrer en arrière-plan
+docker compose logs -f airflow
+```
+
+Les données de pipeline restent dans `data/` et l'état d'Airflow (base locale, compte et journaux) dans un volume Docker nommé. `docker compose down -v` supprime aussi ce volume et réinitialise Airflow. Le port est limité à la machine locale ; `AIRFLOW_PORT` permet de le changer si `8081` est déjà pris.
+
+Le dossier de données par défaut est `data/` à la racine du dépôt. `RUGBY_DATA_DIR` permet de le déplacer ; Compose le configure pour pointer vers le dossier monté dans le conteneur. Le même réglage fonctionne lors d'une exécution Python hors Docker.
+
+> **Note :** cette configuration `standalone` avec SQLite est destinée au développement et à une utilisation locale, pas à un déploiement de production. L'image reste autonome et peut être reconstruite ailleurs avec Docker Compose.
 
 ## Tests et contrôles
 
