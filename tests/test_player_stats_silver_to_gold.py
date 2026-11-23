@@ -21,6 +21,6 @@ def test_player_stats_silver_to_gold():
     assert df_tested.equals(df_ref)
 
 
-test_player_stats_silver_to_gold()
+
 
 
