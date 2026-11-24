@@ -1,3 +1,3 @@
 #silver to gold -> tbd
-
-a = 1
+def run(ENV: str, competition: str, season: str) -> None:
+    pass

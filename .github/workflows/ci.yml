@@ -148,6 +148,9 @@ jobs:
       - name: Valider les modèles dbt
         run: dbt parse
 
+      - name: Test dbt models
+        run: pytest tests/dbt/test_dbt.py -v
+
       - name: Tester le pipeline Silver → Gold
         run: pytest tests/test_player_stats_silver_to_gold.py -v
 

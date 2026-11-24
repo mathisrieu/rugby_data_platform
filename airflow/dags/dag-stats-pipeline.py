@@ -16,9 +16,9 @@ COMPETITION_SEASONS = {
 
 TASK_GROUPS = {
     "calendar": (
-        ("raw_to_bronze", "match_calendar.raw_to_bronze.run"),
-        ("bronze_to_silver", "match_calendar.bronze_to_silver.run"),
-        ("silver_to_gold", "match_calendar.silver_to_gold.run"),
+        ("raw_to_bronze", "src.match_calendar.raw_to_bronze.run"),
+        ("bronze_to_silver", "src.match_calendar.bronze_to_silver.run"),
+        ("silver_to_gold", "src.match_calendar.silver_to_gold.run"),
     ),
     "players_per_match": (
         ("raw_to_bronze", "src.players_per_match.raw_to_bronze.run"),
@@ -26,9 +26,9 @@ TASK_GROUPS = {
         ("silver_to_gold", "src.players_per_match.silver_to_gold.run"),
     ),
     "player_stats": (
-        ("raw_to_bronze", "player_stats.raw_to_bronze.run"),
-        ("bronze_to_silver", "player_stats.bronze_to_silver.run"),
-        ("silver_to_gold", "player_stats.silver_to_gold.run"),
+        ("raw_to_bronze", "src.player_stats.raw_to_bronze.run"),
+        ("bronze_to_silver", "src.player_stats.bronze_to_silver.run"),
+        ("silver_to_gold", "src.player_stats.silver_to_gold.run"),
     ),
 }
 
@@ -36,7 +36,7 @@ DOCKER_KWARGS = dict(
     image="{{ var.value.PROJECT_IMAGE }}",   # ex. ghcr.io/moi/projet:1.4
     docker_url="ssh://azureuser@10.0.0.5",   # IP privée de la VM d'exécution
     auto_remove="success",
-    mount_tmp_dir=False,                      # nécessaire avec un Docker distant
+    mount_tmp_dir=False,
     mem_limit="800m",
     pool="worker_pool",                       # limite les conteneurs simultanés
     mounts=[                                  # voir le point crucial ci-dessous

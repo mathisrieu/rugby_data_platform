@@ -35,11 +35,6 @@ models:
     # Par défaut, tout ce qui est dans le dossier "models" sera créé sous forme de table
     +materialized: table
     
-    # Configuration spécifique pour tes zones Silver et Gold
-    silver:
-      +schema: silver
-      +file_format: json  # Demande à DuckDB de sauvegarder en Parquet
-    
     gold:
       +schema: gold
       +file_format: parquet  # Idem pour la zone Gold
