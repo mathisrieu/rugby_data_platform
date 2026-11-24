@@ -34,13 +34,13 @@ TASK_GROUPS = {
 
 DOCKER_KWARGS = dict(
     image="{{ var.value.PROJECT_IMAGE }}",   # ex. ghcr.io/moi/projet:1.4
-    docker_url="ssh://azureuser@10.0.0.5",   # IP privée de la VM d'exécution
+    docker_url="ssh://azureuser@74.152.65.24",   # IP privée de la VM d'exécution
     auto_remove="success",
     mount_tmp_dir=False,
     mem_limit="800m",
     pool="worker_pool",                       # limite les conteneurs simultanés
     mounts=[                                  # voir le point crucial ci-dessous
-        Mount(source="/opt/projet/data", target="/app/data", type="bind"),
+        Mount(source="/media/projects/rugby_data_platform", target="/app/data", type="bind"),
     ],
     environment={
         # secrets lus dans les Variables Airflow, à adapter à votre code
