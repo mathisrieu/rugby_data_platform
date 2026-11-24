@@ -27,7 +27,6 @@ DOCKER_KWARGS = dict(
     mem_limit="800m",
     pool="worker_pool",
     force_pull=False,
-    use_ssh_client=True,
     mounts=[
         Mount(
             source="/media/projects/rugby_data_platform",
