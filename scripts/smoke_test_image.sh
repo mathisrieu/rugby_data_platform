@@ -31,6 +31,6 @@ docker run --rm --network none "$IMAGE"
 
 echo "→ modules du projet"
 "${RUN[@]}" "$IMAGE" -c \
-  "python -c 'import src.utils.project_task; print(\"Point d'entrée ETL OK\")'"
+  "python -c 'import src.utils.project_task; print(\"Point entrée ETL OK\")'"
 
 echo "✓ image OK : $IMAGE"
