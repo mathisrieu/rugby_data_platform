@@ -21,13 +21,16 @@ jobs:
       contents: read
 
   build:
-    name: Build + Smoke Test
+    name: Build + Smoke Test + Publish
     needs: ci
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
     permissions:
       contents: read
       packages: write
+
     steps:
       - name: Récupérer le code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -73,8 +76,8 @@ jobs:
           IMAGE: ${{ steps.image.outputs.name }}
           VERSION: ${{ github.sha }}
         run: |
-          docker tag "rugby-data-stats:${VERSION}" "${IMAGE}:${VERSION}"
+          docker tag "rugby-data-stats:${VERSION}" "${IMAGE}:sha-${VERSION}"
           docker tag "rugby-data-stats:${VERSION}" "${IMAGE}:latest"
 
-          docker push "${IMAGE}:${VERSION}"
+          docker push "${IMAGE}:sha-${VERSION}"
           docker push "${IMAGE}:latest"
