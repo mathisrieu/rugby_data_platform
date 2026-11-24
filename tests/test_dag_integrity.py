@@ -59,7 +59,7 @@ def test_statistics_dags_share_pipeline_and_use_their_own_parameters(dagbag: Dag
         "python",
         "-m",
         "src.utils.project_task",
-        "match_calendar.raw_to_bronze.run",
+        "src.match_calendar.raw_to_bronze.run",
         "{{ var.value.ENV }}",
         "top-14",
         "2026-2027",

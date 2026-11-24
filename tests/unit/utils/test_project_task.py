@@ -1,11 +1,7 @@
 
 from unittest.mock import MagicMock, patch
 
-from src.utils.project_task import run_project_task
-
-from unittest.mock import patch
-
-from src.utils.project_task import main
+from src.utils.project_task import main, run_project_task
 
 
 def test_run_project_task_imports_module_and_calls_run():
