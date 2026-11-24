@@ -26,4 +26,11 @@ echo "→ dbt"
 echo "→ dbt parse"
 "${RUN[@]}" "$IMAGE" -c 'dbt parse'
 
+echo "→ point d'entrée par défaut"
+docker run --rm --network none "$IMAGE"
+
+echo "→ modules du projet"
+"${RUN[@]}" "$IMAGE" -c \
+  'python -c "import src.utils.project_task; print(\"Point d'entrée ETL OK\")"'
+
 echo "✓ image OK : $IMAGE"
