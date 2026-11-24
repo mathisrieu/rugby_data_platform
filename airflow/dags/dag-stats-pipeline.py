@@ -1,9 +1,49 @@
+
 from datetime import datetime
 
+import docker
 from airflow import DAG
+from airflow.operators.python import PythonOperator
 from airflow.providers.docker.operators.docker import DockerOperator
 from airflow.utils.task_group import TaskGroup
 from docker.types import Mount
+
+
+# ---------------------------------------------------------------------
+# Configuration Docker
+# ---------------------------------------------------------------------
+
+IMAGE_NAME = "ghcr.io/mathisrieu/rugby-data-stats"
+IMAGE_TAG = "latest"
+IMAGE_REFERENCE = f"{IMAGE_NAME}:{IMAGE_TAG}"
+
+DOCKER_URL = "ssh://azureuser@172.16.0.5"
+
+DOCKER_KWARGS = dict(
+    image="{{ ti.xcom_pull(task_ids='prepare_docker_image') }}",
+    docker_url=DOCKER_URL,
+    auto_remove="success",
+    mount_tmp_dir=False,
+    mem_limit="800m",
+    pool="worker_pool",
+    force_pull=False,
+    mounts=[
+        Mount(
+            source="/media/projects/rugby_data_platform",
+            target="/app/data",
+            type="bind",
+        ),
+    ],
+    environment={
+        # Secrets éventuellement transmis via les Variables Airflow
+        # "DB_PASSWORD": "{{ var.value.DB_PASSWORD }}",
+    },
+)
+
+
+# ---------------------------------------------------------------------
+# Compétitions et saisons
+# ---------------------------------------------------------------------
 
 COMPETITION_SEASONS = {
     "top-14": ("2026-2027",),
@@ -13,6 +53,11 @@ COMPETITION_SEASONS = {
     "challenge-cup": ("2026-2027",),
     "urc": ("2026-2027",),
 }
+
+
+# ---------------------------------------------------------------------
+# Étapes ETL
+# ---------------------------------------------------------------------
 
 TASK_GROUPS = {
     "calendar": (
@@ -32,22 +77,33 @@ TASK_GROUPS = {
     ),
 }
 
-DOCKER_KWARGS = dict(
-    image="{{ var.value.PROJECT_IMAGE }}",   # ex. ghcr.io/moi/projet:1.4
-    docker_url="ssh://azureuser@10.0.0.5",   # IP privée de la VM d'exécution
-    auto_remove="success",
-    mount_tmp_dir=False,
-    mem_limit="800m",
-    pool="worker_pool",                       # limite les conteneurs simultanés
-    mounts=[                                  # voir le point crucial ci-dessous
-        Mount(source="/opt/projet/data", target="/app/data", type="bind"),
-    ],
-    environment={
-        # secrets lus dans les Variables Airflow, à adapter à votre code
-        # "DB_PASSWORD": "{{ var.value.DB_PASSWORD }}",
-    },
-)
 
+# ---------------------------------------------------------------------
+# Préparation de l'image Docker sur VM-2
+# ---------------------------------------------------------------------
+
+def prepare_docker_image():
+    client = docker.DockerClient(base_url=DOCKER_URL,use_ssh_client=True,)
+
+    try:
+        client.images.pull(
+            IMAGE_NAME,
+            tag=IMAGE_TAG,
+        )
+
+        print(f"Image récupérée : {IMAGE_REFERENCE}")
+
+        # Retourne la référence complète.
+        # Airflow la stocke automatiquement dans XCom.
+        return IMAGE_REFERENCE
+
+    finally:
+        client.close()
+
+
+# ---------------------------------------------------------------------
+# Création des groupes de tâches
+# ---------------------------------------------------------------------
 
 def create_task_group(
     group_id: str,
@@ -55,13 +111,19 @@ def create_task_group(
     competition: str,
     season: str,
 ) -> TaskGroup:
+
     with TaskGroup(group_id=group_id) as task_group:
+
         previous_task = None
+
         for task_id, module_path in steps:
+
             task = DockerOperator(
                 task_id=task_id,
                 command=[
-                    "python", "-m", "src.utils.project_task",
+                    "python",
+                    "-m",
+                    "src.utils.project_task",
                     module_path,
                     "{{ var.value.ENV }}",
                     competition,
@@ -69,14 +131,24 @@ def create_task_group(
                 ],
                 **DOCKER_KWARGS,
             )
+
             if previous_task is not None:
                 previous_task >> task
+
             previous_task = task
 
     return task_group
 
 
-def create_competition_season_dag(competition: str, season: str) -> DAG:
+# ---------------------------------------------------------------------
+# Création des DAGs
+# ---------------------------------------------------------------------
+
+def create_competition_season_dag(
+    competition: str,
+    season: str,
+) -> DAG:
+
     dag_id = f"stats_{competition}_{season}"
 
     with DAG(
@@ -87,17 +159,44 @@ def create_competition_season_dag(competition: str, season: str) -> DAG:
         max_active_runs=1,
         tags=["stats", competition, season],
     ) as dag:
+
+        # 1. Téléchargement de l'image sur VM-2
+        prepare_image = PythonOperator(
+            task_id="prepare_docker_image",
+            python_callable=prepare_docker_image,
+        )
+
+        # 2. Création des groupes ETL
         groups = {
-            group_id: create_task_group(group_id, steps, competition, season)
+            group_id: create_task_group(
+                group_id,
+                steps,
+                competition,
+                season,
+            )
             for group_id, steps in TASK_GROUPS.items()
         }
 
-        groups["calendar"] >> groups["players_per_match"] >> groups["player_stats"]
+        # 3. Ordonnancement
+        prepare_image >> groups["calendar"]
+
+        groups["calendar"] >> groups["players_per_match"]
+        groups["players_per_match"] >> groups["player_stats"]
 
     return dag
 
 
+# ---------------------------------------------------------------------
+# Instanciation des DAGs
+# ---------------------------------------------------------------------
+
 for competition, seasons in COMPETITION_SEASONS.items():
+
     for season in seasons:
-        competition_dag = create_competition_season_dag(competition, season)
+
+        competition_dag = create_competition_season_dag(
+            competition,
+            season,
+        )
+
         globals()[competition_dag.dag_id] = competition_dag

@@ -51,7 +51,7 @@ def test_statistics_dag_exists_for_each_configured_competition_season(dagbag: Da
 def test_statistics_dags_share_pipeline_and_use_their_own_parameters(dagbag: DagBag):
     dag = dagbag.dags["stats_top-14_2026-2027"]
     assert dag is not None
-    assert len(dag.tasks) == 9
+    assert len(dag.tasks) == 10
 
     task = dag.get_task("calendar.raw_to_bronze")
 
