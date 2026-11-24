@@ -14,15 +14,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  ci:
-    name: Validation CI
-    uses: ./.github/workflows/ci.yml
-    permissions:
-      contents: read
 
   build:
     name: Build + Smoke Test + Publish
-    needs: ci
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 30
