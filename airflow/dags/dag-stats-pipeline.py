@@ -17,7 +17,7 @@ IMAGE_NAME = "ghcr.io/mathisrieu/rugby-data-stats"
 IMAGE_TAG = "latest"
 IMAGE_REFERENCE = f"{IMAGE_NAME}:{IMAGE_TAG}"
 
-DOCKER_URL = "ssh://azureuser@74.152.65.24"
+DOCKER_URL = "ssh://azureuser@172.16.0.5"
 
 DOCKER_KWARGS = dict(
     image="{{ ti.xcom_pull(task_ids='prepare_docker_image') }}",
@@ -27,6 +27,7 @@ DOCKER_KWARGS = dict(
     mem_limit="800m",
     pool="worker_pool",
     force_pull=False,
+    use_ssh_client=True,
     mounts=[
         Mount(
             source="/media/projects/rugby_data_platform",
@@ -83,7 +84,7 @@ TASK_GROUPS = {
 # ---------------------------------------------------------------------
 
 def prepare_docker_image():
-    client = docker.DockerClient(base_url=DOCKER_URL)
+    client = docker.DockerClient(base_url=DOCKER_URL,use_ssh_client=True,)
 
     try:
         client.images.pull(
